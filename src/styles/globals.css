@@ -2,32 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+*{
+    font-family: "Poppins", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+body{
+    background-color: #F9F9F9;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+    .container {
+        @apply max-w-6xl mx-auto px-4
+    }
+    .gradiendBg{
+        @apply bg-gradient-to-r from-[#A22155] to-[#D6565B];
+    }
+    .blackAndWhiteBg{
+        @apply bg-gradient-to-t from-[#060204a7] to-[#24242429];
+    }
+    
+    .btnGradient{
+        @apply bg-gradient-to-r from-[#EB033B] to-[#fe3e44];
+    }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.navColorControl{
+    background-color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .navColorControl{
+        background-image: linear-gradient(to right, #A22155, #D6565B);
+    }
 }
