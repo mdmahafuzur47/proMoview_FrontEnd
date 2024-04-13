@@ -4,7 +4,7 @@ const BackToTop = () => {
     const [isVisible, setIsVisible] = useState(false)
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 400) {
+            if (window.scrollY > 300) {
                 setIsVisible(true)
             }else{
                 setIsVisible(false);
@@ -24,7 +24,7 @@ const BackToTop = () => {
         })
     }
     return (
-        <div onClick={scrollToTop} className={`fixed size-10 flex justify-center items-center text-white text-2xl rounded-full btnGradient right-10 bottom-8 ${isVisible ? "block" : "hidden"}`}>
+        <div onClick={scrollToTop} className={`fixed size-10 flex justify-center items-center text-white text-2xl rounded-full z-[9999] btnGradient right-10 bottom-8 ${isVisible ? "block" : "hidden"}`}>
             <MaterialSymbolsKeyboardArrowUp />
         </div>
     )

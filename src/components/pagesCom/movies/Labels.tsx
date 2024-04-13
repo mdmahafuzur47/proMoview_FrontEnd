@@ -13,7 +13,7 @@ const Labels = () => {
                             <div key={index} className='flex flex-wrap gap-2'>
                                 {
                                     link.children && 
-                                    link.children.map((link,index) =>  (<Link key={index} href="" className='px-3 py-1 text-sm font-medium border rounded-md'>{link.title}</Link>))
+                                    link.children.map((link,index) =>  (<Link key={index} href={`/movies/Genre-` + link.title} className='px-3 hover:scale-105 py-1 text-sm font-medium border rounded-md'>{link.title}</Link>))
                                 }
                             </div>
                         )

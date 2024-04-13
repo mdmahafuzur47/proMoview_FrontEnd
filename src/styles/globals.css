@@ -4,6 +4,7 @@
 
 *{
     font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth scroll;
 }
 
 body{
@@ -30,7 +31,7 @@ body{
     background-color: white;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .navColorControl{
         background-image: linear-gradient(to right, #A22155, #D6565B);
     }

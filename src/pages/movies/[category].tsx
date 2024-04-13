@@ -9,11 +9,11 @@ const Movies = () => {
     const category = router?.query?.category;
     return (
         <section className='container py-5'>
-            <div className='flex gap-10'>
+            <div className='flex gap-10 lg:flex-row flex-col'>
                 {/* show movie by label  */}
                 <div className='lg:w-[70%]'>
                     <h1 className='font-medium text-gray-700 text-center'>Showing posts with label <span className='font-semibold'>{category }</span>.</h1>
-                    <div className='grid grid-cols-3 gap-3 mt-5'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-5'>
                         <MovieCard />
                         <MovieCard />
                         <MovieCard />

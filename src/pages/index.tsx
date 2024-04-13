@@ -7,7 +7,7 @@ export default function Home() {
     <main>
       <div className="w-full h-auto py-5 md:gradiendBg">
         <div className="">
-          <h1 className="md:text-gray-200 font-bold text-2xl md:text-3xl mb-2 text-center ">
+          <h1 className="md:text-gray-200 font-bold text-gray-700 text-2xl md:text-3xl mb-2 text-center ">
             TOP OF THE WEEK
           </h1>
           <div className="flex flex-col items-center gap-1 mb-4">

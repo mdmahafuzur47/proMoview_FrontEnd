@@ -57,6 +57,9 @@ const navLinks = [
         },
         {
           title: "Family",
+        },
+        {
+          title: "HindiDubbed",
         }
       ]
     },

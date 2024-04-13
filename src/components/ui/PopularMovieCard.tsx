@@ -1,27 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { SVGProps } from 'react'
 import { movieData } from '../../../public/data/movieData'
+import Link from 'next/link';
 
 const PopularMovieCard = () => {
     const { title, thumbImg, year } = movieData[0];
     return (
-        <div className='flex gap-2 font-medium'>
-            <img className='w-full h-[150px] rounded-md' src={thumbImg} alt="img" />
-            <div>
-                <h1 className='hover:underline'>{title}</h1>
-                <div className='mt-4 flex justify-between'>
-                    <button className="btnGradient font-semibold px-3 text-white py-1 rounded-md text-sm">
-                        {year}
-                    </button>
-                    <div className='flex items-center'>
-                        <NotoStar />
-                        <NotoStar />
-                        <NotoStar />
-                        <NotoStar />
-                        <NotoStar />
+        <div>
+            <Link className='flex gap-2 font-medium' href={`/movieDetails/${title}`}>
+                <img className='w-full h-[150px] rounded-md' src={thumbImg} alt="img" />
+                <div>
+                    <h1 className='hover:underline'>{title}</h1>
+                    <div className='mt-4 flex justify-between'>
+                        <button className="btnGradient font-semibold px-3 text-white py-1 rounded-md text-sm">
+                            {year}
+                        </button>
+                        <div className='flex items-center'>
+                            <NotoStar />
+                            <NotoStar />
+                            <NotoStar />
+                            <NotoStar />
+                            <NotoStar />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     )
 }

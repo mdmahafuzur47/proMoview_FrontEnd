@@ -10,6 +10,7 @@ import navLinks from "../../../public/data/navLinks";
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openNav, setOpenNav] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,8 +26,13 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   })
+
   const router = useRouter();
   const path = router?.asPath;
+  const handleBoth = () => {
+    setOpenNav(!openNav)
+    setOpen(false)
+  }
   return (
     <nav className="bg-white">
       {/* top navbar  */}
@@ -44,12 +50,15 @@ const Navbar = () => {
             </div>
           </div>
           {/* social Links  */}
-          <div className="flex gap-3 font-semibold">
+         <div className="flex items-center gap-5">
+         <div className="flex gap-3 font-semibold">
             <PhTelegramLogo />
             <PhYoutubeLogo />
             <TablerBrandTwitter />
             <UitFacebookF />
           </div>
+          <Link href={"/dashboard"} className="btnGradient text-white font-medium text-sm px-4 py-[2px]  rounded-md">Add</Link>
+         </div>
         </div>
       </div>
       {/* mobile icon view  */}
@@ -57,12 +66,12 @@ const Navbar = () => {
         <img className="w-[220px] h-auto" src="/moview logo.png" alt="img" />
       </Link>
       {/* main navbar  */}
-      <div className="container flex items-center justify-center navColorControl md:justify-between p-3 md:py-2">
+      <div className="container flex items-center justify-center navColorControl md:justify-between p-3 md:py-2 relative">
         <Link className="hidden md:block" href={"/"}>
           <img className="w-[220px] h-auto" src="/moview logo.png" alt="img" />
         </Link>
 
-        <div className="flex gap-5  items-center">
+        <div className="flex gap-5 items-center">
           <div className="lg:block hidden">
             <ul className="flex gap-5">
               {navLinks?.map((links, index) => {
@@ -98,10 +107,54 @@ const Navbar = () => {
               })}
             </ul>
           </div>
+
+          {/* mobile view navbar  */}
+          {
+            openNav && <div className="absolute bg-gray-50 z-[9999] top-[61px] right-0 lg:hidden">
+              <ul className="flex p-5 flex-col gap-5">
+                {navLinks?.map((links, index) => {
+                  return (
+                    <>
+                      <li className={`font-semibold  text-gray-700 hover:text-[#FF4444] ${path === links?.path ? "text-[#FF4444]" : ""} `} key={index}>
+
+                        {
+                          links?.children ? (<div onClick={() => setOpen(!open)} className="flex items-center gap-1 hover:text-[#FF4444]">
+                            <Link href={links.path}>{links.name}</Link>
+                            <MaterialSymbolsArrowDropDown />
+                          </div>) : (<div onClick={() => setOpenNav(!openNav)}>
+                            <Link href={links.path}>{links.name}</Link>
+                          </div>)
+                        }
+                        {
+                          open && links?.children && (
+                            <ul className="flex flex-col absolute top-10 pl-3 pr-16 right-[150px] gap-3 py-3 rounded-sm bg-white z-[99] shadow-md">
+                              {links?.children?.map((links, index) => {
+                                return (
+                                  <>
+                                    <li onClick={handleBoth} key={index} className={`font-medium   text-gray-700 hover:text-[#FF4444]`} >
+                                      <Link href={`/movies/Genre-` + links.title}>{links.title}</Link>
+                                    </li>
+                                  </>
+                                );
+                              })}
+                            </ul>
+                          )
+                        }
+                      </li>
+
+                    </>
+                  );
+                })}
+              </ul>
+            </div>
+          }
+
+          {/* mobile view navbar end  */}
+
           <div>
             <div className="border px-5 py-[6px] rounded-2xl flex items-center cursor-pointer bg-white">
               <input
-                className="outline-none "
+                className="outline-none md:w-[200px] w-[150px]"
                 type="text"
                 placeholder="Search..."
               />
@@ -109,20 +162,22 @@ const Navbar = () => {
             </div>
           </div>
           {/* menu icon  */}
-          <div className="lg:hidden p-[6px] text-xl btnGradient text-white rounded-md">
-            <MaterialSymbolsListsRounded />
+          <div onClick={handleBoth} className="lg:hidden p-[6px] text-xl btnGradient text-white rounded-md">
+            {
+              openNav ? <MaterialSymbolsCloseSmall /> : <MaterialSymbolsListsRounded />
+            }
           </div>
         </div>
 
       </div>
       {
         !scrolling ? "" : (<div className="fixed top-0 left-0 w-full h-auto bg-white z-[999] shadow-md">
-          <div className="container flex items-center justify-center navColorControl md:justify-between p-3 md:py-2">
+          <div className="container flex items-center justify-center navColorControl md:justify-between p-3 md:py-2 relative">
             <Link className="hidden md:block" href={"/"}>
               <img className="w-[220px] h-auto" src="/moview logo.png" alt="img" />
             </Link>
 
-            <div className="flex gap-5  items-center">
+            <div className="flex gap-5 items-center">
               <div className="lg:block hidden">
                 <ul className="flex gap-5">
                   {navLinks?.map((links, index) => {
@@ -158,10 +213,54 @@ const Navbar = () => {
                   })}
                 </ul>
               </div>
+
+              {/* mobile view navbar  */}
+              {
+                openNav && <div className="absolute bg-gray-50 z-[9999] top-[61px] right-0 lg:hidden">
+                  <ul className="flex p-5 flex-col gap-5">
+                    {navLinks?.map((links, index) => {
+                      return (
+                        <>
+                          <li className={`font-semibold  text-gray-700 hover:text-[#FF4444] ${path === links?.path ? "text-[#FF4444]" : ""} `} key={index}>
+
+                            {
+                              links?.children ? (<div onClick={() => setOpen(!open)} className="flex items-center gap-1 hover:text-[#FF4444]">
+                                <Link href={links.path}>{links.name}</Link>
+                                <MaterialSymbolsArrowDropDown />
+                              </div>) : (<div onClick={() => setOpenNav(!openNav)}>
+                                <Link href={links.path}>{links.name}</Link>
+                              </div>)
+                            }
+                            {
+                              open && links?.children && (
+                                <ul className="flex flex-col absolute top-10 pl-3 pr-16 right-[150px] gap-3 py-3 rounded-sm bg-white z-[99] shadow-md">
+                                  {links?.children?.map((links, index) => {
+                                    return (
+                                      <>
+                                        <li onClick={handleBoth} key={index} className={`font-medium   text-gray-700 hover:text-[#FF4444]`} >
+                                          <Link href={`/movies/Genre-` + links.title}>{links.title}</Link>
+                                        </li>
+                                      </>
+                                    );
+                                  })}
+                                </ul>
+                              )
+                            }
+                          </li>
+
+                        </>
+                      );
+                    })}
+                  </ul>
+                </div>
+              }
+
+              {/* mobile view navbar end  */}
+
               <div>
                 <div className="border px-5 py-[6px] rounded-2xl flex items-center cursor-pointer bg-white">
                   <input
-                    className="outline-none "
+                    className="outline-none md:w-[200px] w-[150px]"
                     type="text"
                     placeholder="Search..."
                   />
@@ -169,8 +268,10 @@ const Navbar = () => {
                 </div>
               </div>
               {/* menu icon  */}
-              <div className="lg:hidden p-[6px] text-xl btnGradient text-white rounded-md">
-                <MaterialSymbolsListsRounded />
+              <div onClick={handleBoth} className="lg:hidden p-[6px] text-xl btnGradient text-white rounded-md">
+                {
+                  openNav ? <MaterialSymbolsCloseSmall /> : <MaterialSymbolsListsRounded />
+                }
               </div>
             </div>
 
@@ -184,6 +285,14 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+export function MaterialSymbolsCloseSmall(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="m8.382 17.025l-1.407-1.4L10.593 12L6.975 8.4L8.382 7L12 10.615L15.593 7L17 8.4L13.382 12L17 15.625l-1.407 1.4L12 13.41z"></path></svg>
+  )
+}
 
 
 export function MaterialSymbolsListsRounded(props: SVGProps<SVGSVGElement>) {
@@ -261,9 +370,9 @@ export function TablerBrandTwitter(props: SVGProps<SVGSVGElement>) {
       <path
         fill="none"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="M22 4.01c-1 .49-1.98.689-3 .99c-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4c0 0-4.182 7.433 4 11c-1.872 1.247-3.739 2.088-6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753c0-.249 1.51-2.772 1.818-4.013z"
       ></path>
     </svg>

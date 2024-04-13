@@ -3,6 +3,7 @@ import Navbar from "@/components/shared/Navbar";
 import BackToTop from "@/components/ui/BackToTop";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Toaster } from "sonner";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       {/* scroll to top  */}
       <BackToTop />
+      <Toaster />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { SVGProps, useState } from "react";
 import { movieData } from "../../../public/data/movieData";
+import Link from "next/link";
 
 const MovieCard = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,6 +15,7 @@ const MovieCard = () => {
       />
       {/* absoluter part  */}
       <div className="absolute top-0 left-0 w-full h-full blackAndWhiteBg rounded-md shadow-lg">
+        <Link href={`/movieDetails/${title}`}>  
         <div className="flex flex-col items-start w-full h-full justify-end p-2 text-white gap-1 cursor-pointer" onMouseEnter={() => setIsHovered(!isHovered)} onMouseLeave={() => setIsHovered(!isHovered)}>
           <button className="btnGradient font-semibold px-3 py-1 rounded-md text-sm">
             {year}
@@ -24,6 +26,7 @@ const MovieCard = () => {
             <p className="">{releaseDate}</p>
           </div>
         </div>
+        </Link>
       </div>
     </div>
   );

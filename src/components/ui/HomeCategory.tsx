@@ -1,23 +1,37 @@
 import React, { SVGProps } from 'react'
 import MovieCard from './MovieCard'
 import Slider from './Slider'
+import Link from 'next/link'
 
 const HomeCategory = ({ title }: {
     title: string
 }) => {
 
+    let path;
+    if (title === "Action Movies") {
+        path = 'action'
+    }else if(title === "Animation Movies") {
+        path = "animation"
+    }else if(title === "Comedy Movies") {
+        path = "comedy"
+    }else if(title === "Hindi-Dubbed Movies") {
+        path = "hindiDubbed"
+    }
+
     return (
         <section className='container pt-10'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-2xl font-semibold text-gray-700'>{title}</h1>
-                <div className='flex items-center gap-[2.5px] text-white btnGradient px-3 rounded-sm py-1'>
-                    <MaterialSymbolsListsRounded />
-                    <p className='font-semibold'>View All</p>
-                </div>
+                <h1 className='text-md md:text-2xl font-semibold text-gray-700'>{title}</h1>
+                <Link href={`/movies/Genre-${path}`}>
+                    <div className='flex items-center gap-[2.5px] text-white btnGradient px-2 md:px-3 rounded-sm py-1 text-sm md:text-md'>
+                        <MaterialSymbolsListsRounded />
+                        <p className='font-semibold'>View All</p>
+                    </div>
+                </Link>
             </div>
             <div className='mt-5'>
-            <Slider />
-          </div>
+                <Slider />
+            </div>
         </section>
     )
 }
