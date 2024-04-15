@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const rootUrl = "http://localhost:5000/api";
+const rootUrl = "https://promoview-server.vercel.app/api";
+// const rootUrl = "http://localhost:5001/api";
 
 export const getAllMovie = async () => {
   const res = await axios(`${rootUrl}/movies`);
@@ -20,3 +21,11 @@ export const getByCategory = async (category: string | undefined) => {
 
   return res.data;
 };
+
+
+export const searchMovies = async(name: string | undefined) =>{
+    if(!name) throw new Error("name is required");
+    const res = await axios(`${rootUrl}/movies/search?name=${name}`);
+
+    return res.data;
+}

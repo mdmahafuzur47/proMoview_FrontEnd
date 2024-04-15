@@ -5,12 +5,25 @@ import React, { SVGProps, useEffect, useState } from "react";
 import Spinner from "../ui/Spinner";
 import { useRouter } from "next/router";
 import navLinks from "../../../public/data/navLinks";
+import { useQuery } from "@tanstack/react-query";
+import { searchMovies } from "@/pages/api/api";
 
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [open, setOpen] = useState(false);
   const [openNav, setOpenNav] = useState(false)
+  const [searchOpen,setSearchOpen] = useState(false)
+
+  const [searchData, setSearchData] = useState("");
+
+  const { data } = useQuery({
+    queryKey: ["searchMovies", searchData],
+    queryFn: async () => searchMovies(searchData)
+  })
+
+  // console.log(data?.data);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,15 +63,15 @@ const Navbar = () => {
             </div>
           </div>
           {/* social Links  */}
-         <div className="flex items-center gap-5">
-         <div className="flex gap-3 font-semibold">
-            <PhTelegramLogo />
-            <PhYoutubeLogo />
-            <TablerBrandTwitter />
-            <UitFacebookF />
+          <div className="flex items-center gap-5">
+            <div className="flex gap-3 font-semibold">
+              <PhTelegramLogo />
+              <PhYoutubeLogo />
+              <TablerBrandTwitter />
+              <UitFacebookF />
+            </div>
+            <Link href={"/dashboard"} className="btnGradient text-white font-medium text-sm px-4 py-[2px]  rounded-md">Add</Link>
           </div>
-          <Link href={"/dashboard"} className="btnGradient text-white font-medium text-sm px-4 py-[2px]  rounded-md">Add</Link>
-         </div>
         </div>
       </div>
       {/* mobile icon view  */}
@@ -151,15 +164,36 @@ const Navbar = () => {
 
           {/* mobile view navbar end  */}
 
-          <div>
-            <div className="border px-5 py-[6px] rounded-2xl flex items-center cursor-pointer bg-white">
+          <div className="relative">
+            <div className="border px-5 py-[6px] rounded-2xl flex items-center cursor-pointer bg-white" onClick={() => setSearchOpen(!searchOpen)}>
               <input
+                onChange={(e) => setSearchData(e.target.value)}
                 className="outline-none md:w-[200px] w-[150px]"
                 type="text"
                 placeholder="Search..."
               />
               <IcBaselineSearch />
             </div>
+
+            {
+              data?.data?.length > 0 && searchOpen === true ? <div className="absolute bg-white border w-full h-auto px-3 py-2 top-10 rounded-md left-0 z-[9999]">
+                <div className="flex flex-col gap-2">
+                  {
+                    data?.data?.map((item: any, index: number) => {
+                      return (
+                       <Link onClick={() => setSearchOpen(!searchOpen)} key={index} href={`/movieDetails/${item._id}`}>
+                        <div  className="flex items-start gap-2">
+                          <img className="size-14 rounded-md shadow-sm" src={item?.thumbImg} alt="img" />
+                        <p className="font-medium text-gray-600">{item?.title}</p>
+                        </div>
+                       </Link>
+                      )
+                    })
+                  }
+                </div>
+              </div>: ""
+            }
+
           </div>
           {/* menu icon  */}
           <div onClick={handleBoth} className="lg:hidden p-[6px] text-xl btnGradient text-white rounded-md">
@@ -280,7 +314,7 @@ const Navbar = () => {
       }
 
 
-    </nav>
+    </nav >
   );
 };
 

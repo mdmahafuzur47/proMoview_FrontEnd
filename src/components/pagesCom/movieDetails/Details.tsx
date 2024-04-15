@@ -2,7 +2,6 @@
 import Loading from '@/components/ui/Loading';
 import Link from 'next/link';
 import React, { SVGProps } from 'react'
-import { movieData } from '../../../../public/data/movieData';
 
 const Details = ({ data }: any) => {
     if (!data) {

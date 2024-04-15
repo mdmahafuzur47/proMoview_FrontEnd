@@ -3,6 +3,7 @@ import PopularMovieCard from '@/components/ui/PopularMovieCard'
 import { getAllMovie } from '@/pages/api/api'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
+import { fileURLToPath } from 'url'
 
 const PopularMovie = () => {
 
@@ -15,13 +16,14 @@ const PopularMovie = () => {
         return <Loading />
     }
 
-    console.log(data.data);
+    const fiterData = data?.data?.filter((item:any) => item.isView !== false);
+
     return (
         <div className='bg-white p-3 rounded-md shadow-sm'>
             <h1 className='uppercase font-semibold text-gray-700'>Popular Movies</h1>
             <div className='mt-3 flex flex-col sm:flex-row lg:flex-col gap-8 lg:gap-3'>
                {
-                data.data?.slice(0,3).map((movie:any,index:number) => (
+                fiterData?.slice(0,3).map((movie:any,index:number) => (
                     <PopularMovieCard key={index} movie={movie} />
                 ))
                }

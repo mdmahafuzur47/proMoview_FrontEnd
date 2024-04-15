@@ -15,7 +15,7 @@ const ShowTable = () => {
         const fetchData = async (name: string) => {
             try {
                 setLoading(true)
-                const res = await axios.get(`http://localhost:5000/api/movies?name=${name}`)
+                const res = await axios.get(`https://promoview-server.vercel.app/api/movies?name=${name}`)
                 setData(res.data.data);
                 setLoading(false)
             } catch (err) {
@@ -28,7 +28,7 @@ const ShowTable = () => {
 
     const handleDeleteMovies = async (id: string) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/movies/${id}`);
+            const res = await axios.delete(`https://promoview-server.vercel.app/api/movies/${id}`);
             console.log(res);
             toast.success("Successfully deleted movie...")
             const updateData = data.filter((item: any) => item?._id !== id);

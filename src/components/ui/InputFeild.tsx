@@ -77,7 +77,7 @@ const InputForm: React.FC = () => {
         }
 
         try {
-            const res = await axios.post("http://localhost:5000/api/movies", data);
+            const res = await axios.post("https://promoview-server.vercel.app/api/movies", data);
             console.log("Response", res);
             toast.success("Movie successfully added...");
             setLoading(false);
