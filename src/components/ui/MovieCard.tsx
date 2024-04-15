@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { SVGProps, useState } from "react";
-import { movieData } from "../../../public/data/movieData";
 import Link from "next/link";
 
-const MovieCard = () => {
+const MovieCard = ({ data }: any) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { thumbImg, title, year, releaseDate } = movieData[0];
+  const { _id, thumbImg, title, year, releaseDate } = data;
   return (
     <div className="w-full shadow-lg h-[360px] relative overflow-hidden">
       <img
@@ -15,17 +14,17 @@ const MovieCard = () => {
       />
       {/* absoluter part  */}
       <div className="absolute top-0 left-0 w-full h-full blackAndWhiteBg rounded-md shadow-lg">
-        <Link href={`/movieDetails/${title}`}>  
-        <div className="flex flex-col items-start w-full h-full justify-end p-2 text-white gap-1 cursor-pointer" onMouseEnter={() => setIsHovered(!isHovered)} onMouseLeave={() => setIsHovered(!isHovered)}>
-          <button className="btnGradient font-semibold px-3 py-1 rounded-md text-sm">
-            {year}
-          </button>
-          <h1 className="text-xl font-semibold text-gray-50 transition-all duration-100 hover:underline">{title}</h1>
-          <div className="flex gap-1 items-center text-sm font-medium">
-            <MaterialSymbolsEditCalendarOutlineRounded />
-            <p className="">{releaseDate}</p>
+        <Link href={`/movieDetails/${_id}`}>
+          <div className="flex flex-col items-start w-full h-full justify-end p-2 text-white gap-1 cursor-pointer" onMouseEnter={() => setIsHovered(!isHovered)} onMouseLeave={() => setIsHovered(!isHovered)}>
+            <button className="btnGradient font-semibold px-3 py-1 rounded-md text-sm">
+              {year}
+            </button>
+            <h1 className="text-xl font-semibold text-gray-50 transition-all duration-100 hover:underline">{title}</h1>
+            <div className="flex gap-1 items-center text-sm font-medium">
+              <MaterialSymbolsEditCalendarOutlineRounded />
+              <p className="">{releaseDate}</p>
+            </div>
           </div>
-        </div>
         </Link>
       </div>
     </div>

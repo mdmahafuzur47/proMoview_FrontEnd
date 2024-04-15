@@ -3,15 +3,15 @@ import React, { SVGProps } from 'react'
 import { movieData } from '../../../public/data/movieData'
 import Link from 'next/link';
 
-const PopularMovieCard = () => {
-    const { title, thumbImg, year } = movieData[0];
+const PopularMovieCard = ({movie}:any) => {
+    const { title, thumbImg, year } = movie;
     return (
         <div>
             <Link className='flex gap-2 font-medium' href={`/movieDetails/${title}`}>
                 <img className='w-full h-[150px] rounded-md' src={thumbImg} alt="img" />
                 <div>
                     <h1 className='hover:underline'>{title}</h1>
-                    <div className='mt-4 flex justify-between'>
+                    <div className='mt-4 flex justify-between gap-2'>
                         <button className="btnGradient font-semibold px-3 text-white py-1 rounded-md text-sm">
                             {year}
                         </button>

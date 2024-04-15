@@ -24,9 +24,6 @@ export const GenreData = [
     value: "Fantasy",
   },
   {
-    value: "Fantasy",
-  },
-  {
     value: "Horror",
   },
   {

@@ -30,7 +30,7 @@ const InputForm: React.FC = () => {
     });
 
     const handleDeleteGenre = (data: string) => {
-        console.log(data);
+        // console.log(data);
         setGenre(genre.filter(item => item !== data))
     }
 

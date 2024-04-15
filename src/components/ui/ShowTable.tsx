@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import axios from 'axios';
 import React, { SVGProps, useEffect, useState } from 'react'
+import { toast } from 'sonner';
+import Loading from './Loading';
 
 const ShowTable = () => {
 
@@ -24,7 +26,18 @@ const ShowTable = () => {
         fetchData(name);
     }, [name])
 
-    console.log(data);
+    const handleDeleteMovies = async (id: string) => {
+        try {
+            const res = await axios.delete(`http://localhost:5000/api/movies/${id}`);
+            console.log(res);
+            toast.success("Successfully deleted movie...")
+            const updateData = data.filter((item: any) => item?._id !== id);
+            setData(updateData);
+        } catch (err) {
+            console.log(err);
+            toast.error("Error deleting movie");
+        }
+    }
 
     const onChange = (name: string) => {
         // setValue(value === "false" ? "true" : "false");
@@ -32,9 +45,7 @@ const ShowTable = () => {
     }
 
     if (loading) {
-        return <div className='container flex justify-center items-center h-[300px]'>
-            <div className={`w-10 h-10 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin`} />
-        </div>
+        return <Loading />
     }
 
     return (
@@ -70,7 +81,7 @@ const ShowTable = () => {
                                         </div>
                                     </td>
                                     <td className="border text-center px-2 py-1">
-                                        <button className='px-2 text-white py-1 bg-red-600 shadow-md rounded-md'><MaterialSymbolsDeleteForever /></button>
+                                        <button onClick={() => handleDeleteMovies(item?._id)} className='px-2 text-white py-1 bg-red-600 shadow-md rounded-md'><MaterialSymbolsDeleteForever /></button>
                                     </td>
                                 </tr>
                             )

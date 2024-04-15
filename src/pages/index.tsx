@@ -16,7 +16,7 @@ export default function Home() {
             <div className="w-[80px] h-[1.8px] md:bg-white bg-gray-600"></div>
           </div>
           <div className="container">
-            <Slider />
+            <Slider filter="Comedy" />
           </div>
         </div>
       </div>

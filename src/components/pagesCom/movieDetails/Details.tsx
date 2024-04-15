@@ -1,9 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
+import Loading from '@/components/ui/Loading';
 import Link from 'next/link';
 import React, { SVGProps } from 'react'
+import { movieData } from '../../../../public/data/movieData';
 
 const Details = ({ data }: any) => {
-    const { title, releaseDate, thumbImg, name, IMDBRating, genre, languages, downloadLinks } = data;
+    if (!data) {
+        return <Loading />
+    }
+
+    const { title, releaseDate, thumbImg, name, IMDBRating, genre,quality, languages, downloadLinks } = data;
     return (
         <div className='bg-white shadow rounded-md text-gray-700'>
             <div className='px-5 pt-5 pb-3'>
@@ -36,44 +42,24 @@ const Details = ({ data }: any) => {
                         })
                     }</p>
                     <p className='font-medium'>Quality :{
-                        downloadLinks?.map((item: any, index: number) => {
-                            return <span className='font-[400]' key={index}>{item.quality} , </span>
+                        quality?.map((item: any, index: number) => {
+                            return <span className='font-[400]' key={index}>{item} , </span>
                         })
                     }</p>
                 </div>
-                {/* screenShot  */}
-                {/* <div>
-                    <h1 className='text-[18px] font-semibold text-center mb-5'>Screenshots</h1>
-                    <div className='flex flex-col'>
-                        {
-                            screenshots?.map((link: string, index: number) => {
-                                return (
-                                    <div key={index}>
-                                        <img className='w-[550px] h-[250px]' src={link} alt="img" />
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </div> */}
 
                 <div className='mt-5'>
                     <h1 className='text-[18px] font-semibold text-center mb-5'>Download Links</h1>
-                    <div className='flex flex-col gap-2'>
-                    {
-                        downloadLinks?.map((link: any, index: number) => {
+                    <div className='flex flex-col gap-3'>
+                       {
+                        downloadLinks?.map((link:string, index:number) =>{
                             return (
-                                <div key={index} className='flex font-medium gap-2 items-center'>
-                                    <h1 className='w-[130px]'>{link.quality}[{link.size}]</h1>
-                                    <Link href={link.link}>
-                                        <button className="btnGradient font-semibold px-3 text-white py-1 rounded-md text-sm">
-                                            Download
-                                        </button>
-                                    </Link>
-                                </div>
+                                <Link href={link} key={index} passHref>
+                                    <button className='btnGradient text-white font-medium px-4 py-1 rounded-md'>Download link {index + 1}</button>
+                                </Link>
                             )
                         })
-                    }
+                       }
                     </div>
                 </div>
             </div>

@@ -9,14 +9,16 @@ const HomeCategory = ({ title }: {
 
     let path;
     if (title === "Action Movies") {
-        path = 'action'
+        path = "Action"
     }else if(title === "Animation Movies") {
-        path = "animation"
+        path = "Animation"
     }else if(title === "Comedy Movies") {
-        path = "comedy"
+        path = "Comedy"
     }else if(title === "Hindi-Dubbed Movies") {
-        path = "hindiDubbed"
+        path = "HindiDubbed"
     }
+
+
 
     return (
         <section className='container pt-10'>
@@ -30,7 +32,7 @@ const HomeCategory = ({ title }: {
                 </Link>
             </div>
             <div className='mt-5'>
-                <Slider />
+                <Slider filter={path}/>
             </div>
         </section>
     )
